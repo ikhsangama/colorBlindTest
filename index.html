@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Color Blind Test by IkhsanGama</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -14,7 +18,7 @@
       </nav>
     </div>
 
-    <div>
+    <div class="nav-second">
       <h2 id="level" class="inline"></h2>
       <h2 id="score" class="inline"></h2>
       <h2 id="combo" class="inline"></h2>
@@ -25,7 +29,12 @@
       <div id="main-test"></div>
       <button id="reset">Start over</button>
     </main>
-
+    <div class="hiddenFormName">
+      <form action="index.html">
+        <label for="name">First name:</label><br />
+        <input type="text" id="name" name="name" />
+      </form>
+    </div>
     <div id="high-score"></div>
   </body>
 

@@ -2,11 +2,15 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Open Sans", sans-serif;
 }
 
 nav {
     background-color: #1a237e;
     padding: 10px 0;
+    text-align: center;
+}
+.nav-second {
     text-align: center;
 }
 

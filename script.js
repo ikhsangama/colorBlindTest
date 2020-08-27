@@ -2,6 +2,7 @@
 let lv = 0
 let score = 0
 let combo = 0
+let circleSize = 0
 let randCirclePos = -1
 
 // document selector
@@ -37,24 +38,29 @@ function scoreUp() {
         timerRunning = true;
         interval = setInterval((handler = startTimer), (timeout = 1000));
     }
-    combo++
-    score += combo
-    // console.log();
-    console.log(score, "score");
-    document.getElementById("level").innerHTML = `Level = ${leadingZero(lv)}`;
-    document.getElementById("score").innerHTML = `Score = ${leadingZero(score)}`;
-    document.getElementById("combo").innerHTML = `Combo = ${leadingZero(combo)}`;
-    if (combo % 3 === 0) {
-        lv++
-        // generateCircle(lv)
+    if (timerRunning) {
+        combo++
+        score += combo
+        // console.log();
+        console.log(score, "score");
+        document.getElementById("level").innerHTML = `Level = ${leadingZero(lv)}`;
+        document.getElementById("score").innerHTML = `Score = ${leadingZero(score)}`;
+        document.getElementById("combo").innerHTML = `Combo = ${leadingZero(combo)}`;
+        if (combo % 3 === 0) {
+            lv++
+            // generateCircle(lv)
+        }
+        generateCircle(lv)
     }
-    generateCircle(lv)
+
 }
 
 function noScore() {
-    lv = 1
-    combo = 0;
-    generateCircle(lv)
+    if (timerRunning) {
+        lv = 1
+        combo = 0;
+        generateCircle(lv)
+    }
 }
 
 // Add leading zero to numbers 9 or below (purely for aesthetics):
@@ -72,6 +78,8 @@ function startTimer() {
     // 30 detik = 0,30,0,timer[3] = centiS*100 + S*60*100 + M*30*60
     if (timer > 0) {
         timer--;
+    } else {
+        timerRunning = false
     }
 }
 
@@ -124,8 +132,9 @@ function generateCircle(lv = 1) {
     // buat random circle position
     randCirclePos = Math.floor(Math.random() * size * size)
     console.log(randCirclePos, "pos");
-    let circleSize = 10 / (1.5 + (lv / 5))
-    console.log(circleSize);
+    if (size <= 5) circleSize = 10 / (1.5 + (lv / 5))
+    // if (size > 5) 
+    console.log(circleSize, "circlesize");
     for (let i = 0; i < circles.length; i++) {
         if (i === randCirclePos) {
             circles[i].style.cssText = `width: ${circleSize}em; height: ${circleSize}em; background-color: rgba(${red}, ${green}, ${blue}, ${alpha})`
