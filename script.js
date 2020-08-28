@@ -8,13 +8,13 @@ let circleSize = 0
 let randCirclePos = -1
 let arrHighScore = []
 // play sound
-// backsound = playSound("backsound", 0.8, autoplay = true, loop = true);
+backsound = document.getElementById("backsound");
 
 // document selector
 const resetButton = document.querySelector("#reset");
 const mainTest = document.querySelector("#main-test")
 const theTimer = document.querySelector("#timer")
-var timer = 5;
+var timer = 30;
 var interval;
 var timerRunning = false;
 
@@ -44,25 +44,11 @@ function showEl(el) {
 function savePlayer() {
     playerName = document.querySelector("#playerName").value;
 
-    // if (!players[playerName]) {
-    //     players[playerName] = score
-    // } else {
-    //     if (players[playerName] < score) {
-    //         alert(`Your max score is ${players[playerName]}`)
-    //     } else {
-    //         players[playerName] = score
-    //     }
-    // }
     player = {}
     player.name = playerName;
     player.score = score
     arrHighScore.push(player)
     // sort by value
-    // [{ ikhsan: 34 }, {ikh: 20}]
-    // players{
-    //     ikhsan: 24,
-    //         sss : 20
-    // }
     arrHighScore.sort(function (a, b) {
         return b.score - a.score;
     });
@@ -84,7 +70,7 @@ function reset() {
     clearInterval(interval);
     interval = null;
     timerRunning = false;
-    timer = 5;
+    timer = 30;
 
     generateCircle(lv)
     document.getElementById("level").innerHTML = `Level = ${leadingZero(lv)}`;
@@ -103,6 +89,7 @@ function scoreUp() {
     if (timerRunning) {
         combo++
         score += combo
+        playSound("correct_sound")
         // console.log();
         console.log(score, "score");
         document.getElementById("level").innerHTML = `Level = ${leadingZero(lv)}`;
@@ -121,6 +108,7 @@ function noScore() {
     if (timerRunning) {
         lv = 1
         combo = 0;
+        playSound("wrong_sound")
         generateCircle(lv)
     }
 }
@@ -245,9 +233,10 @@ function updateTable() {
         `
         x.append(row)
     }
+    reset()
 }
 // voice pack
-function playSound(sound, vol, autoplay, loop) {
+function playSound(sound, vol, autoplay) {
     let x = document.getElementById(sound);
     x.autoplay = true;
     if (vol) {
@@ -256,9 +245,7 @@ function playSound(sound, vol, autoplay, loop) {
     if (autoplay) {
         x.autoplay
     }
-    if (loop) {
-        x.loop
-    }
+    console.log(x);
     x.load();
     return x
 }
@@ -269,5 +256,5 @@ resetButton.addEventListener("click", reset, false);
 
 window.onload = (event) => {
     reset()
-    toggleEl(".hiddenForm")
+    hideEl(".hidden-form")
 };
