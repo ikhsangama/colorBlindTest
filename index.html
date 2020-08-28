@@ -29,13 +29,50 @@
       <div id="main-test"></div>
       <button id="reset">Start over</button>
     </main>
-    <div class="hiddenFormName">
-      <form action="index.html">
-        <label for="name">First name:</label><br />
-        <input type="text" id="name" name="name" />
+    <div class="hidden-form" class="hide">
+      <form id="form" onsubmit="return false">
+        <label for="playerName">Player Name:</label><br />
+        <input type="text" id="playerName" name="name" />
+        <div>
+          <br />
+          <input id="submit" type="submit" onclick="savePlayer();" />
+        </div>
       </form>
     </div>
-    <div id="high-score"></div>
+    <div id="high-score">
+      <table id="players">
+        <!-- <tr>
+          <th style="width: 33.3%">PLACE</th>
+          <th style="width: 33.3%">PLAYER NAME</th>
+          <th style="width: 33.3%">HIGHEST SCORE</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Maria Anders</td>
+          <td>24</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Christina Berglund</td>
+          <td>24</td>
+        </tr> -->
+      </table>
+    </div>
+
+    <!-- audio pack -->
+    <audio id="time_over" controls hidden>
+      <source src="voice/time_over.ogg" type="audio/ogg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="clock_ticking" controls hidden>
+      <source src="voice/clock_ticking.ogg" type="audio/ogg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="backsound" controls hidden>
+      <source src="voice/level1.ogg" type="audio/ogg" />
+      Your browser does not support the audio element.
+    </audio>
+    <br />
   </body>
 
   <footer></footer>

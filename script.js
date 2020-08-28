@@ -2,28 +2,89 @@
 let lv = 0
 let score = 0
 let combo = 0
+let players = {}
+let player = { name: "", score: 0 }
 let circleSize = 0
 let randCirclePos = -1
+let arrHighScore = []
+// play sound
+// backsound = playSound("backsound", 0.8, autoplay = true, loop = true);
 
 // document selector
 const resetButton = document.querySelector("#reset");
 const mainTest = document.querySelector("#main-test")
 const theTimer = document.querySelector("#timer")
-var timer = 30;
+var timer = 5;
 var interval;
 var timerRunning = false;
+
+// toggle element
+function toggleEl(el) {
+    console.log(el);
+    var x = document.querySelector(el);
+    console.log(x);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function hideEl(el) {
+    var x = document.querySelector(el);
+    x.style.display = "none";
+}
+
+function showEl(el) {
+    var x = document.querySelector(el);
+    x.style.display = "block";
+}
+
+// function savePlayer
+function savePlayer() {
+    playerName = document.querySelector("#playerName").value;
+
+    // if (!players[playerName]) {
+    //     players[playerName] = score
+    // } else {
+    //     if (players[playerName] < score) {
+    //         alert(`Your max score is ${players[playerName]}`)
+    //     } else {
+    //         players[playerName] = score
+    //     }
+    // }
+    player = {}
+    player.name = playerName;
+    player.score = score
+    arrHighScore.push(player)
+    // sort by value
+    // [{ ikhsan: 34 }, {ikh: 20}]
+    // players{
+    //     ikhsan: 24,
+    //         sss : 20
+    // }
+    arrHighScore.sort(function (a, b) {
+        return b.score - a.score;
+    });
+    updateTable()
+}
 
 // reset permainan
 function reset() {
     lv = 0
     score = 0
+    combo = 0
+    // hilangkan form
+    hideEl(".hidden-form")
+    showEl("#main-test")
+    // toggleEl(".hidden-form")
+    // toggleEl("#main-test")
 
     // stop timer
     clearInterval(interval);
     interval = null;
     timerRunning = false;
-    timer = 30;
-
+    timer = 5;
 
     generateCircle(lv)
     document.getElementById("level").innerHTML = `Level = ${leadingZero(lv)}`;
@@ -37,6 +98,7 @@ function scoreUp() {
     if (score === 0 && !timerRunning) {
         timerRunning = true;
         interval = setInterval((handler = startTimer), (timeout = 1000));
+        backsound.volume = 0.2;
     }
     if (timerRunning) {
         combo++
@@ -71,18 +133,32 @@ function leadingZero(bilangan) {
     return bilangan;
 }
 
-// Run a standard minute/second/hundredths timer:
+// Run a standard seconds timer:
 function startTimer() {
     let currentTimer = leadingZero(timer) + " Sec"
     theTimer.innerHTML = currentTimer;
     // 30 detik = 0,30,0,timer[3] = centiS*100 + S*60*100 + M*30*60
     if (timer > 0) {
         timer--;
+        playSound("clock_ticking")
     } else {
         timerRunning = false
+        clearInterval(interval);
+        interval = null;
+        // let muncul = document.querySelector(".hidden-form")
+        // muncul.classList.remove("hide");
+        // muncul.classList.add("visible");
+        // console.log(muncul);
+        // play sound
+        endGame()
+        playSound("time_over")
     }
 }
 
+function endGame() {
+    hideEl("#main-test")
+    showEl(".hidden-form")
+}
 // generate circle
 function generateCircle(lv = 1) {
     document.getElementById("level").innerHTML = `level = ${lv}`;
@@ -148,10 +224,50 @@ function generateCircle(lv = 1) {
     }
 
 }
+// [{name: "ikhsan", score: 24},..]
+function updateTable() {
+    // hapus table
+    var x = document.getElementById("players")
+    x.innerHTML = `
+        <tr>
+          <th style="width: 33.3%">PLACE</th>
+          <th style="width: 33.3%">PLAYER NAME</th>
+          <th style="width: 33.3%">HIGHEST SCORE</th>
+        </tr>
+        `
+    // isi tabel
+    for (let i = 0; i < arrHighScore.length; i++) {
+        let row = document.createElement("tr")
+        row.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${arrHighScore[i]["name"]}</td>
+        <td>${arrHighScore[i]["score"]}</td>
+        `
+        x.append(row)
+    }
+}
+// voice pack
+function playSound(sound, vol, autoplay, loop) {
+    let x = document.getElementById(sound);
+    x.autoplay = true;
+    if (vol) {
+        x.volume = vol
+    }
+    if (autoplay) {
+        x.autoplay
+    }
+    if (loop) {
+        x.loop
+    }
+    x.load();
+    return x
+}
+
 
 // function button
 resetButton.addEventListener("click", reset, false);
 
 window.onload = (event) => {
     reset()
+    toggleEl(".hiddenForm")
 };

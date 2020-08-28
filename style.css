@@ -48,6 +48,34 @@ main {
     margin: 0px 2px;
 }
 
+.hiddenForm {
+    /* position: absolute; */
+    width: 200px;
+    color: whitesmoke;
+    padding: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    text-align: center;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+#form {
+    text-align: center;
+    background-color: #283593;
+    color: aliceblue;
+    padding: 1em;
+    font-size: 1em;
+    font-weight: bold;
+}
+
 #reset {
     margin-top: 20px;
     padding: 0.5em 1em;
@@ -61,4 +89,55 @@ main {
 #reset:hover {
     color: white;
     background-color: #e95d0f;
+}
+
+#submit {
+    margin-top: 2px;
+    padding: 0.5em 1em;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #e95d0f;
+    background: white;
+    border: 10px solid #e95d0f;
+}
+
+#submit:hover {
+    color: white;
+    background-color: #e95d0f;
+}
+
+#high-score {
+    text-align: center;
+    color: #303f9f;
+    font-weight: bold;
+}
+
+#players {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+#players td,
+#players th {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#players tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#players tr:hover {
+    background-color: #ddd;
+}
+
+#players th {
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #3949ab;
+    color: white;
 }
